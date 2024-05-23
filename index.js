@@ -1,11 +1,20 @@
 const express = require("express")
 const mongoose = require('mongoose')
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require("./config/config")
 
+const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
 const app = express()
-mongoose.connect("mongodb://root:root@mongo:27017/?authSource=admin")
-.then(()=>{console.log("Conexão realizada com sucesso !")})
-.catch((e)=>{console.error(e)})
 
+const connectWithRetry = ()=>{
+    mongoose.connect(mongoURL)
+    .then(()=>{console.log("Conexão realizada com sucesso !")})
+    .catch((e)=>{
+        console.error(e)
+        setTimeout(connectWithRetry,5000)
+    })
+}
+
+connectWithRetry()
 
 app.get("/",(req,res) =>{
     if(process.env.NODE_ENV == "development")

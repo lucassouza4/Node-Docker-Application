@@ -9,6 +9,8 @@ services:
       - /app/node_modules
     environment:
       - PORT=3000
+    depends_on:
+      - mongo
     # env_file:
     #  - ./.env
   mongo:
