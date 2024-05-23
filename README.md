@@ -63,13 +63,13 @@ Para interromper os contêineres e remover os volumes associados, execute os seg
 - Para ambiente de desenvolvimento:
 
   ```
-  docker compose -f docker-compose.yaml -f docker-compose.dev.yaml down -v
+  docker compose -f docker-compose.yaml -f docker-compose.dev.yaml down
   ```
 
 - Para ambiente de produção:
 
   ```
-  docker compose -f docker-compose.yaml -f docker-compose.prod.yaml down -v
+  docker compose -f docker-compose.yaml -f docker-compose.prod.yaml down
   ```
 
 ## Personalização
